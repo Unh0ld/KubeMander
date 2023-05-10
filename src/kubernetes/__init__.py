@@ -3,6 +3,7 @@ import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
 
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
+
 from .kubernetes_plugin.kubernetes_plugin import _kubectl_command
 
 PromptGenerator = TypeVar("PromptGenerator")
@@ -65,7 +66,7 @@ class AutoGPTKubernetes(AutoGPTPluginTemplate):
             {"command": "<command>"},
             _kubectl_command,
         )
-        pass
+        return prompt
 
     
     def can_handle_on_planning(self) -> bool:
