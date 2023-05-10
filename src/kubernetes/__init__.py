@@ -3,6 +3,7 @@ import abc
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
 
 from abstract_singleton import AbstractSingleton, Singleton
+from .kubernetes_plugin.kubernetes_plugin import _kubectl_command
 
 PromptGenerator = TypeVar("PromptGenerator")
 
@@ -12,16 +13,16 @@ class Message(TypedDict):
     content: str
 
 
-class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
+class AutoGPTKubernetes(AbstractSingleton, metaclass=Singleton):
     """
-    This is a template for Auto-GPT plugins.
+    This is a Auto-GPT plugin for Kubernetes.
     """
 
     def __init__(self):
         super().__init__()
-        self._name = "Auto-GPT-Plugin-Template"
+        self._name = "autogpt-kubernetes"
         self._version = "0.1.0"
-        self._description = "This is a template for Auto-GPT plugins."
+        self._description = "This is a Auto-GPT plugin for Kubernetes."
 
     @abc.abstractmethod
     def can_handle_on_response(self) -> bool:
@@ -44,7 +45,7 @@ class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
 
         Returns:
             bool: True if the plugin can handle the post_prompt method."""
-        return False
+        return True
 
     @abc.abstractmethod
     def post_prompt(self, prompt: PromptGenerator) -> PromptGenerator:
@@ -57,6 +58,13 @@ class AutoGPTPluginTemplate(AbstractSingleton, metaclass=Singleton):
         Returns:
             PromptGenerator: The prompt generator.
         """
+
+        prompt.add_command(
+            "kubectl command",
+            "Kubectl command",
+            {"command": "<command>"},
+            _kubectl_command,
+        )
         pass
 
     @abc.abstractmethod
