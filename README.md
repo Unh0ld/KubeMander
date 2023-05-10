@@ -1,4 +1,4 @@
-"# AutoGPT-Kubernetes Plugin 🐳
+# AutoGPT-Kubernetes Plugin 🐳
 
 An AutoGPT plugin to enable interaction with Kubernetes for managing applications and resources.
 
@@ -45,4 +45,4 @@ Example:
   1. Goal 1: `Deploy an application using the nginx image`
   2. Goal 2: `Terminate`
 
-2. **Run Auto-GPT**: Launch Auto-GPT, which should use the Kubernetes plugin to deploy the application and return the status."
+2. **Run Auto-GPT**: Launch Auto-GPT, which should use the Kubernetes plugin to deploy the application and return the status.
